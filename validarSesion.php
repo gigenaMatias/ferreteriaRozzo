@@ -12,9 +12,9 @@ if($filas){
     $_SESSION['idUsuario'] = $id;
     $_SESSION['usuario'] = $fila['nombre'];
     $_SESSION['estado'] = $fila['estado'];
-    header("location:index.php");
+    header("location: index.php");
 }
 else{
-    header("location:iniciarSesion.php");
+    header("location: iniciarSesion.php");
 }
 ?>
