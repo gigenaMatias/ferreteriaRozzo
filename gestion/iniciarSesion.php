@@ -23,7 +23,7 @@
          <br><br>
         <a href="registrarUsuario.php">Registrarse</a>
         <br>
-        <a href="index.php">Volver al home</a>   
+        <a href="../index.php">Volver al home</a>   
     </form>
 </body>
 </html>

@@ -3,7 +3,7 @@
     session_start();
     include("conexion.php");
     if(empty($_SESSION["usuario"])){
-        header("Location:iniciarSesion.php");
+        header("Location: gestion/iniciarSesion.php");
     }
     else{
         echo "conectado admin";
