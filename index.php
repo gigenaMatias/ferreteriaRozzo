@@ -10,17 +10,26 @@
     <!--Menu Navegacion-->
     <ul>
         <li>
-            <form action="gestion/ventas.php" method="post">Ventas</form> <!--Ventas-->
+            <form action="gestion/ventas.php" method="post">
+                <button type="submit">Ventas</button>
+            </form> <!--Ventas-->
         </li>
         <li>
-            <form action="gestion/credito.php" method="post">Credito</form> <!--Credito-->
+            <form action="gestion/credito.php" method="post">
+                <button type="submit">Credito</button>
+            </form> <!--Credito-->
         </li>
         <li>
-            <form action="gestion/productos.php" method="post">Ver Productos</form> <!--Ver Productos-->
+            <form action="gestion/productos.php" method="post">
+                <button type="submit">Ver Productos</button>
+            </form> <!--Ver Productos-->
         </li>
         <li>
-            <form action="" method="post">Ver Provedores</form> <!--Ver Provedores-->
+            <form action="gestion/provedores.php" method="post">
+                <button type="submit">Ver Provedores</button>
+            </form> <!--Ver Provedores-->
         </li>
     </ul>
+
 </body>
 </html>
