@@ -10,26 +10,22 @@
         echo 'Conectado a la base de datos <br>';
     }
 
-    //para prevenir mysql injection
-    $nombre= mysqli_real_escape_string($conexion, $_POST['Nombre']);
-    $dni= mysqli_real_escape_string($conexion, $_POST['DNI']);
-    $telefono= mysqli_real_escape_string($conexion, $_POST['Telefono']);
-    $contra= mysqli_real_escape_string($conexion, $_POST['password']);
+    $nombre= mysqli_real_escape_string($conexion, $_POST['nombre']);
+    $contra= mysqli_real_escape_string($conexion, $_POST['contra']);
+    $dni= mysqli_real_escape_string($conexion, $_POST['dni']);
+    $estado= mysqli_real_escape_string($conexion, $_POST['estado']);
 
 
     if($nombre == 'admin')
     {
         $estado = 'administrador';
     }
-    else{
-        $estado = 'usuario';
-    }
       
-    $sql_verify = "SELECT nombre FROM usuario WHERE nombre = '$nombre'";
+    $sql_verify = "SELECT nombre FROM usuarios WHERE nombre = '$nombre'";
     $querys = mysqli_query($conexion,$sql_verify);
     if (mysqli_num_rows($querys) == 0){
-        $sql_insert = "INSERT INTO usuario (nombre,telefono,dni,contra,estado)
-        VALUES ('$nombre','$telefono','$dni','$contra','$estado');";
+        $sql_insert = "INSERT INTO usuarios (nombre,dni,contra,estado)
+        VALUES ('$nombre','$dni','$contra','$estado');";
         $query= mysqli_query($conexion,$sql_insert);
         header('Location:iniciarSesion.php');
     }
