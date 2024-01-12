@@ -2,13 +2,12 @@
 <?php
     session_start();
     include("conexion.php");
-    if(empty($_SESSION["usuario"])){
-        header("Location:iniciarSesion.php");
+    if(empty($_SESSION['usuario'])){
+        header("Location:index.php");
     }
-    else{
-        echo "conectado admin";
+    elseif($_SESSION['estado'] != "admin"){
+        header("Location:index.php");
     }
-    session_destroy();
 ?>
 <html lang="en">
 <head>
