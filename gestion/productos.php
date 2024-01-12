@@ -1,5 +1,5 @@
 <?php
-include('../conexion.php');
+include('conexion.php');
 
 //consulta de productos
 $sql = "SELECT * FROM productos";
