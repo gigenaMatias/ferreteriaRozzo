@@ -3,10 +3,10 @@
     session_start();
     include("conexion.php");
     if(empty($_SESSION['usuario'])){
-        header("Location:index.php");
+        header("Location: index.php");
     }
     elseif($_SESSION['estado'] != "admin"){
-        header("Location:index.php");
+        header("Location: index.php");
     }
 ?>
 <html lang="en">
