@@ -17,10 +17,11 @@ if (mysqli_num_rows($resultado) > 0) {
        " - imagen: " . $fila["imagen"].
        " - provedor: " . $fila["provedor"]. //boton modificar
        "<form action='modificarProducto.php' method='post'>
-                <button type='submit'>Modificar producto</button>
+            <input hidden type='number' value='".$fila["id"]."'>
+            <button type='submit'>Modificar producto</button>
         </form>
         <form action='borrarProducto.php' method='post'>
-            <input hidden type='number' value='".$fila["id"]."'>
+            <input hidden type='number' name='idProducto' value='".$fila["id"]."'>
             <button type='submit'>Borrar Producto</button>
         </form><br>";
     }
