@@ -40,6 +40,6 @@
             </form> <!--Ver Provedores-->
         </li>
     </ul>
-
+    <a href='gestion/cerrarSesion.php' class='vuelta'>Cerrar Sesion</a>
 </body>
 </html>

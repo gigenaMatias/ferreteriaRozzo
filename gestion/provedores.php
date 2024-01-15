@@ -38,7 +38,7 @@
                 </form>
                 <form action='borrarProvedor.php' method='POST'>
                     <input hidden type='number' name='idP' value='".$fila["id"]."'>
-                    <button type='submit'>Borrar Producto</button>
+                    <button type='submit'>Borrar Provedor</button>
                 </form><br>";
             }
           } else {
@@ -49,6 +49,7 @@
         ?>
     </section>
         <a href='../index.php' class='vuelta'>Volver a Home</a>
+        <button><a href='crearProvedor.php' class='vuelta'>Crear Provedor</a></button>
         <a href='cerrarSesion.php' class='vuelta'>Cerrar Sesion</a>
 </body>        
 </html>
