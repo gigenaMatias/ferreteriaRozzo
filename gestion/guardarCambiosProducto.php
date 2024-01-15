@@ -8,15 +8,10 @@ $divisible = $_POST['divisible'];
 $imagen = $_POST['imagen'];
 $provedor = $_POST['provedor'];
 
-print_r($id);
-print_r($nombre);
-print_r($cantidad);
-print_r($divisible);
-print_r($imagen);
-print_r($provedor);
-
 //consulta para guardar cambios
+$consulta = "UPDATE productos SET nombre= '".$nombre."', cantidad= '".$cantidad."', divisible= '".$divisible."' ,
+imagen= '".$imagen."', provedor= '".$provedor."' WHERE id= ".$id."";
+$resultado = mysqli_query($conexion,$consulta);
 
-
-
+header("location: productos.php");
 ?>
