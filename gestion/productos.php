@@ -15,7 +15,7 @@ if (mysqli_num_rows($resultado) > 0) {
        " - cantidad: " . $fila["cantidad"]. 
        " - divisible: " . $fila["divisible"].
        " - imagen: " . $fila["imagen"].
-       " - provedor: " . $fila["provedor"]. //boton modificar
+       " - provedor: " . $fila["provedor"]. //tomar nombre provedor de acuerdo a su id
        "<form action='modificarProducto.php' method='POST'>
             <input hidden type='number' name='idP' value='".$fila["id"]."'>
             <button type='submit'>Modificar producto</button>

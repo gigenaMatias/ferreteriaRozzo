@@ -5,7 +5,8 @@ $idProducto = $_POST['idP'];
 
 $sql = "SELECT * FROM productos WHERE id='".$idProducto."'";
 $resultado = mysqli_query($conexion, $sql);
-
+$consultaProvedores = "SELECT * FROM provedor";
+$resultadoProvedores = mysqli_query($conexion,$consultaProvedores);
 //impresion de productos
 if (mysqli_num_rows($resultado) > 0) { 
     // output de datos
@@ -21,8 +22,15 @@ if (mysqli_num_rows($resultado) > 0) {
                 <input required type='radio' id='falso' name='divisible' value='0'>
                   <label for='falso'>No</label><br>".
             "imagen: <input required name='imagen' type='text' value='".$fila["imagen"]."'><br>".
-            "provedor: <input required name='provedor' type='text' value='".$fila["provedor"]."'><br>    
-            <button type='submit'>Guardar Cambios</button>
+           
+           //select provedores
+            "<label for='provedor'>Provedor: </label>";
+            echo "<select name='provedor' id='selectorProvedor'>";
+            while ($provedores = mysqli_fetch_assoc($resultadoProvedores)) {
+              echo "<option value='".$provedores['nombre']."'>".$provedores['nombre']."</option>";
+            }
+            echo "</select><br>";
+            echo "<button type='submit'>Guardar Cambios</button>
         </form>";
     }
   } else {
