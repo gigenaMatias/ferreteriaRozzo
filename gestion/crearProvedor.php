@@ -7,7 +7,7 @@
 </head>
 <body>
 	<form action="validarProvedor.php" method="POST">
-		<input type="text" name="nombre" placeholder="ingrese su Nombre">
+		<input required type="text" name="nombre" placeholder="ingrese su Nombre">
         <button type="submit">Enviar</button>
 	</form>
 </body>
