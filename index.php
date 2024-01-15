@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
     session_start();
-    include("conexion.php");
+    include("gestion/conexion.php");
     if(empty($_SESSION["usuario"])){
         header("Location: gestion/iniciarSesion.php");
     }
