@@ -8,7 +8,6 @@
     else{
         echo "conectado admin";
     }
-    session_destroy();
 ?>
 <html lang="en">
 <head>
