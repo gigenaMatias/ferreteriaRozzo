@@ -38,10 +38,10 @@
 
 <script>
 
-function agregarCarrito(str) {
+function agregarCarrito(str) { //agregar mas de un producto
   var xhttp;
   if (str == "") {
-    document.getElementById("txtHint").innerHTML = "";
+    document.getElementById("carrito").innerHTML = "";
     return;
   }
   xhttp = new XMLHttpRequest();
