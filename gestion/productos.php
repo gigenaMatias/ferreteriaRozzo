@@ -50,8 +50,13 @@
         "id: " . $fila["id"].
         " - nombre: " . $fila["nombre"]. 
         " - cantidad: " . $fila["cantidad"]. 
-        " - divisible: " . $fila["divisible"].
-        " - imagen: " . $fila["imagen"].
+        " - divisible: ";
+        if ($fila['divisible']) {
+          echo "si";
+        } else {
+          echo "no";
+        }
+        echo " - imagen: " . $fila["imagen"].
         " - provedor: " . $fila["provedor"]. //tomar nombre provedor de acuerdo a su id
         "<form action='modificarProducto.php' method='POST'>
               <input hidden type='number' name='idP' value='".$fila["id"]."'>
