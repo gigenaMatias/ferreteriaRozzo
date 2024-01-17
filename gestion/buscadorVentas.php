@@ -14,7 +14,8 @@ echo "<table>
 <th>Divisible</th>
 <th>Valor</th>
 <th>Provedor</th>
-</tr>";
+<th></th>"; //boton compra
+echo "</tr>";
 if (mysqli_num_rows($result)> 0) {
   echo "<tr>";
   echo "<td>".$productosLive['nombre']."</td>"; //mostrar 1r elemento
@@ -26,6 +27,7 @@ if (mysqli_num_rows($result)> 0) {
   }
   echo "<td>".$productosLive['valor']."</td>";
   echo "<td>".$productosLive['provedor']."</td>";
+  echo "<td><button type='button'>Agregar al carrito! (no funciona aun)</button></td>";
   echo "</tr>";
 } else {
   echo "<td>Sin</td>";
@@ -43,7 +45,9 @@ while($row = mysqli_fetch_array($result)) { //mostrar despues del 1er elemento
   }
   echo "<td>".$row['valor']."</td>";
   echo "<td>".$row['provedor']."</td>";
+  echo "<td><button type='button'>Agregar al carrito! (no funciona aun)</button></td>";
   echo "</tr>";
+
 }
 echo "</table>";
 
