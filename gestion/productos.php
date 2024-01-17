@@ -58,8 +58,8 @@
         }
         echo " - imagen: " . $fila["imagen"].
         " - provedor: " . $fila["provedor"]. //tomar nombre provedor de acuerdo a su id
-        "<form action='modificarProducto.php' method='POST'>
-              <input hidden type='number' name='idP' value='".$fila["id"]."'>
+        "<form action='modificarProducto.php' method='GET'>
+              <input hidden type='number' name='id' value='".$fila["id"]."'>
               <button type='submit'>Modificar producto</button>
           </form>
           <form action='borrarProducto.php' method='POST'>

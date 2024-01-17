@@ -23,7 +23,7 @@ if (mysqli_num_rows($querys) == 0){
 else{
     echo'<script type="text/javascript">
     alert("NOMBRE REGISTRADO, INGRESE OTRO");
-    window.location.href="productos.php";
+    window.location.href="modificarProducto.php?id='.$id.'";
     </script>';
 }
 

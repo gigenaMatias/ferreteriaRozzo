@@ -1,9 +1,9 @@
 <?php
 include('conexion.php');
 
-$idProducto = $_POST['idP'];
+$id = $_GET['id'];
 
-$sql = "SELECT * FROM productos WHERE id='".$idProducto."'";
+$sql = "SELECT * FROM productos WHERE id='".$id."'";
 $resultado = mysqli_query($conexion, $sql);
 $consultaProvedores = "SELECT * FROM provedor";
 $resultadoProvedores = mysqli_query($conexion,$consultaProvedores);
