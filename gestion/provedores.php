@@ -48,8 +48,10 @@
         mysqli_close($conexion);
         ?>
     </section>
-        <a href='../index.php' class='vuelta'>Volver a Home</a>
         <button><a href='crearProvedor.php' class='vuelta'>Crear Provedor</a></button>
+        <br>
+        <br>
+        <a href='../index.php' class='vuelta'>Volver a Home</a>
         <a href='cerrarSesion.php' class='vuelta'>Cerrar Sesion</a>
 </body>        
 </html>

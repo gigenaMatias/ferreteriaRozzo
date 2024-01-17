@@ -74,6 +74,9 @@
     mysqli_close($conexion);
 ?>
   <button><a href='crearProducto.php' class='vuelta'>Crear Producto</a></button>
+  <br>
+  <br>
+  <a href='../index.php' class='vuelta'>Volver a Home</a>
   <a href='cerrarSesion.php' class='vuelta'>Cerrar Sesion</a>
 </body>
 </html>
