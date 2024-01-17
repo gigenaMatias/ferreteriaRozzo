@@ -64,6 +64,7 @@
           </form>
           <form action='borrarProducto.php' method='POST'>
               <input hidden type='number' name='idProducto' value='".$fila["id"]."'>
+              <input hidden type='text' name='imagen' value='".$fila["imagen"]."'>
               <button type='submit'>Borrar Producto</button>
           </form><br>";
       }

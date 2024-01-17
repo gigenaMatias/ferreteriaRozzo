@@ -30,6 +30,9 @@
         header('Location:iniciarSesion.php');
     }
     else{
-        header('Location:registrarUsuario.php');
+        echo'<script type="text/javascript">
+        alert("NOMBRE REGISTRADO, INGRESE OTRO");
+        window.location.href="provedores.php";
+        </script>';
     }
 ?>

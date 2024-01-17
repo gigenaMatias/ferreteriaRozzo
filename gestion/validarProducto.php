@@ -52,7 +52,9 @@
       header('Location:productos.php');
     }
     else{
-      //header('Location:crearProducto.php');
-      echo "<script language='javascript'>alert('ERROR');</script>";
+      echo'<script type="text/javascript">
+        alert("Producto existente ERROR, ingrese otro nombre");
+        window.location.href="crearProducto.php";
+        </script>';
     }
 ?>

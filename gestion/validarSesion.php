@@ -15,6 +15,9 @@ if($filas){
     header("location:../index.php");
 }
 else{
-    header("location:../iniciarSesion.php");
+    echo'<script type="text/javascript">
+    alert("Valores invalidos, intente nuevamente.");
+    window.location.href="iniciarSesion.php";
+    </script>';
 }
 ?>

@@ -21,7 +21,9 @@
         header('Location:provedores.php');
     }
     else{
-        echo "<script>alert('NOMBRE REGISTRADO, INGRESE OTRO');</script>";
-        header('Location:provedores.php');
+        echo'<script type="text/javascript">
+        alert("NOMBRE REGISTRADO, INGRESE OTRO");
+        window.location.href="crearProvedore.php";
+        </script>';
     }
 ?>
