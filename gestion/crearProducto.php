@@ -26,6 +26,7 @@
             echo "</select><br>";
         ?>
     <button type='submit'>Crear Producto</button>
+    <a href='../index.php' class='vuelta'>Volver a Home</a>
 	</form>
 </body>
 </html>
