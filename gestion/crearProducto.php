@@ -6,7 +6,7 @@
 	<title>registrar usuario</title>
 </head>
 <body>
-	<form action="validarProducto.php" method="POST">
+	<form action="validarProducto.php" method="POST" enctype="multipart/form-data">
         Nombre: <input required name='nombre' type='text'><br>
         Cantidad: <input required name='cantidad' type='number'><br>
         Divisible: <input required type='radio' id='verdad' name='divisible' value='1'>

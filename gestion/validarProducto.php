@@ -44,20 +44,17 @@
     }
     
     //si quisieramos guardar la url de la imagen para subirla a una BD, deberiamos usar $carpetaDestino.$id."."$tipoDeImagen , todas esta linea como tipo STRING
-    ?>
+    $imagen = "$carpetaDestino"."$id"."."."$tipoDeImagen";
 
-
-        $imagen = "$carpetaDestino"."$id"."."."$tipoDeImagen";
-        $sql_insert = "INSERT INTO productos (nombre,cantidad,divisible,imagen,provedor)
-        VALUES ('$nombre','$cantidad','$divisible','$imagen','$provedor');";
-        $query= mysqli_query($conexion,$sql_insert);
     $sql_verify = "SELECT nombre FROM productos WHERE nombre = '$nombre'";
     $querys = mysqli_query($conexion,$sql_verify);
     if (mysqli_num_rows($querys) == 0){
-        
-        //header('Location:productos.php');
+      $sql_insert = "INSERT INTO productos (nombre,cantidad,divisible,imagen,provedor)
+      VALUES ('$nombre','$cantidad','$divisible','$imagen','$provedor');";
+      $query= mysqli_query($conexion,$sql_insert);
+      header('Location:productos.php');
     }
     else{
-        //header('Location:crearProducto.php');
+      header('Location:crearProducto.php');
     }
 ?>
