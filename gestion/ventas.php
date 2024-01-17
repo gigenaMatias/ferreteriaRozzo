@@ -33,3 +33,25 @@
 <br>
 <a href='../index.php' class='vuelta'>Volver a Home</a>
 <a href='cerrarSesion.php' class='vuelta'>Cerrar Sesion</a>
+
+<div id='carrito'><b>Datos del carrito</b></div>
+
+<script>
+
+function agregarCarrito(str) {
+  var xhttp;
+  if (str == "") {
+    document.getElementById("txtHint").innerHTML = "";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+    document.getElementById("carrito").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "carrito.php?q="+str, true);
+  xhttp.send();
+}
+
+</script>
