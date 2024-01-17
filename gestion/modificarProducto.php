@@ -21,6 +21,7 @@ if (mysqli_num_rows($resultado) > 0) {
                   <label for='verdad'>Si</label>
                 <input required type='radio' id='falso' name='divisible' value='0'>
                   <label for='falso'>No</label><br>".
+            "<input  name='imagen' type='hidden' value='".$fila["imagen"]."'><br>".
            
            //select provedores
             "<label for='provedor'>Provedor: </label>";
