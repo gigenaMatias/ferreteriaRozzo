@@ -3,16 +3,19 @@ include('conexion.php');
 
 $id = $_POST['id'];
 $nombre = $_POST['nombre'];
+$valor = $_POST['valor'];
 $cantidad = $_POST['cantidad'];
 $divisible = $_POST['divisible'];
 $imagen = $_POST['imagen'];
 $provedor = $_POST['provedor'];
-$sql_verify = "SELECT nombre FROM productos WHERE nombre = '$nombre'";
+$sql_verify = "SELECT * FROM productos WHERE nombre = '$nombre'";
 $querys = mysqli_query($conexion,$sql_verify);
-if (mysqli_num_rows($querys) == 0){
+$fila = mysqli_fetch_assoc($querys);
+echo $fila["id"];
+if (mysqli_num_rows($querys) == 0 or $fila['id'] == $id){
     $tipoDeImagen = strtolower(pathinfo($imagen,PATHINFO_EXTENSION));
     rename($imagen,'imgSubida/'.$nombre.'.'.$tipoDeImagen);
-    $consulta = "UPDATE productos SET nombre= '".$nombre."', cantidad= '".$cantidad."', divisible= '".$divisible."' ,
+    $consulta = "UPDATE productos SET nombre= '".$nombre."', valor= '".$valor."', cantidad= '".$cantidad."', divisible= '".$divisible."' ,
     imagen= '".'imgSubida/'.$nombre.'.'.$tipoDeImagen."', provedor= '".$provedor."' WHERE id= ".$id."";
     $resultado = mysqli_query($conexion,$consulta);
     echo'<script type="text/javascript">

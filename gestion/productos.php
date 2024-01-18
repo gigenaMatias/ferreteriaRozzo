@@ -49,6 +49,7 @@
         echo 
         "id: " . $fila["id"].
         " - nombre: " . $fila["nombre"]. 
+        " - valor: " . $fila["valor"]. 
         " - cantidad: " . $fila["cantidad"]. 
         " - divisible: ";
         if ($fila['divisible']) {

@@ -15,6 +15,7 @@ if (mysqli_num_rows($resultado) > 0) {
        "<form action='guardarCambiosProducto.php' method='post'>".
             "<input hidden type='number' name='id' value='".$fila["id"]."'>". //id de referencia
             "nombre: <input required name='nombre' type='text' value='".$fila["nombre"]."'><br>".
+            "valor: <input required name='valor' type='text' value='".$fila["valor"]."'><br>".
             "cantidad <input required name='cantidad' type='text' value='".$fila["cantidad"]."'><br>".
             "divisible?:
                 <input required type='radio' id='verdad' name='divisible' value='1'>

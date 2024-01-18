@@ -2,6 +2,7 @@
     include("conexion.php");
     
     $nombre= mysqli_real_escape_string($conexion, $_POST['nombre']);
+    $valor= mysqli_real_escape_string($conexion, $_POST['valor']);
     $cantidad= mysqli_real_escape_string($conexion, $_POST['cantidad']);
     $divisible= mysqli_real_escape_string($conexion, $_POST['divisible']);
     $provedor= mysqli_real_escape_string($conexion, $_POST['provedor']);
@@ -46,8 +47,8 @@
           echo "Hubo un error subiendo tu archivo.";
         }
       }
-      $sql_insert = "INSERT INTO productos (nombre,cantidad,divisible,imagen,provedor)
-      VALUES ('$nombre','$cantidad','$divisible','$imagen','$provedor');";
+      $sql_insert = "INSERT INTO productos (nombre,valor,cantidad,divisible,imagen,provedor)
+      VALUES ('$nombre','$valor','$cantidad','$divisible','$imagen','$provedor');";
       $query= mysqli_query($conexion,$sql_insert);
       header('Location:productos.php');
     }
