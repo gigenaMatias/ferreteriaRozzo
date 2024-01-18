@@ -1,37 +1,28 @@
 <?php
+include('conexion.php');
 
-$mysqli = new mysqli("localhost", "root","", "ferreteriarozzo");
-if($mysqli->connect_error) {
-  exit('sin conexion a la base de datos');
+$id = $_GET['q'];
+
+$sql = "SELECT * FROM productos WHERE id = $id";
+
+$resultado = mysqli_query($conexion,$sql);
+
+$datosProducto = mysqli_fetch_assoc($resultado);
+
+echo "<tr id=elementoCarrito".$datosProducto['id'].">";
+echo "<td style='text-align: center;' >".$datosProducto['id']."</td>";
+echo "<td style='text-align: center;' id=cantidadElemento contenteditable='true'>1</td>";
+echo "<td style='text-align: right;' >".$datosProducto['nombre']."</td>";
+if ($datosProducto['divisible']) {
+    echo "<td style='text-align: center;' >si</td>";
+} else {
+    echo "<td style='text-align: center;' >no</td>";
 }
-
-$sql = "SELECT * FROM productos WHERE id = ?";
-
-$stmt = $mysqli->prepare($sql);
-$stmt->bind_param("s", $_GET['q']);
-$stmt->execute();
-$stmt->store_result();
-$stmt->bind_result($id, $nombre, $cantidad, $divisible, $imagen, $valor, $provedor);
-$stmt->fetch();
-$stmt->close();
-
-
-echo "<table>";
-echo "<th>ID del producto</th>";
-echo "<th>Cantidad</th>";
-echo "<th>Nombre</th>";
-echo "<th>divisible</th>";
-echo "<th>Imagen</th>";
-echo "<th>Valor</th>";
-echo "<th>Provedor</th>";
-echo "<tr>";
-echo "<td>" . $id . "</td>";
-echo "<td>" . $nombre . "</td>";
-echo "<td>" . $cantidad . "</td>";
-echo "<td>" . $divisible . "</td>";
-echo "<td>" . $imagen . "</td>";
-echo "<td>" . $valor . "</td>";
-echo "<td>" . $provedor . "</td>";
+echo "<td>".$datosProducto['imagen']."</td>";
+echo "<td style='text-align: center;'>".$datosProducto['valor']."</td>";
+echo "<td>".$datosProducto['provedor']."</td>";
+echo "<button id=botonCarrito".$datosProducto['id']." onclick='borrarItemCarrito(".$datosProducto['id'].")'>borrar item</button>";
 echo "</tr>";
-echo "</table>";
+
+
 ?>
