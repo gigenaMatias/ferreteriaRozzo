@@ -1,8 +1,24 @@
 <?php
 $q = $_GET['q'];
+$provedor = $_GET['p'];
 include('conexion.php');
 
-$sql = "SELECT * FROM productos WHERE nombre LIKE '%".$q."%'";
+if ($provedor == '' && $q != '') { //si provedor es vacio y nombre tiene algo
+  //busqueda por nombre
+  $sql = "SELECT * FROM productos WHERE nombre LIKE '%".$q."%'";
+} else {
+  if ($provedor != '' && $q == '') { //si provedor tiene algo y nombre es vacio
+    //busqueda por provedor
+    $sql = "SELECT * FROM productos WHERE provedor LIKE '%".$provedor."%'";
+  } else {
+    if($q == '' && $provedor == ''){ //si provedor y nombre es vacio 
+      $sql = "SELECT * FROM productos";
+    }else{
+      $sql = "SELECT * FROM productos WHERE nombre LIKE '%".$q."%' AND provedor LIKE '%".$provedor."%'";
+    }
+  }
+}
+
 $result = mysqli_query($conexion,$sql);
 
 $productosLive = mysqli_fetch_assoc($result);
@@ -26,24 +42,42 @@ if (mysqli_num_rows($result)> 0) {
   }
   echo "<td>".$productosLive['valor']."</td>";
   echo "<td>".$productosLive['provedor']."</td>";
+  echo "<td><form action='modificarProducto.php' method='GET'>
+              <input hidden type='number' name='id' value='".$productosLive['id']."'>
+              <button type='submit'>Modificar producto</button>
+        </form></td>";
+  echo "<td><form action='borrarProducto.php' method='POST'>
+          <input hidden type='number' name='idProducto' value='".$productosLive['id']."'>
+          <input hidden type='text' name='imagen' value='".$productosLive['imagen']."'>
+          <button type='submit'>Borrar Producto</button>
+      </form></td>";
   echo "</tr>";
 } else {
   echo "<td>Sin</td>";
   echo "<td>Resultados</td>";
 }
 
-while($row = mysqli_fetch_array($result)) { //mostrar despues del 1er elemento
+while($fila = mysqli_fetch_array($result)) { //mostrar despues del 1er elemento
   echo "<tr>";
-  echo "<td>".$row['nombre']."</td>";
-  echo "<td>".$row['cantidad']."</td>";
-  if ($row['divisible']) {
+  echo "<td>".$fila['nombre']."</td>";
+  echo "<td>".$fila['cantidad']."</td>";
+  if ($fila['divisible']) {
     echo "<td>si</td>";
   } else {
     echo "<td>no</td>";
   }
-  echo "<td>".$row['valor']."</td>";
-  echo "<td>".$row['provedor']."</td>";
-  echo "</tr>";
+  echo "<td>".$fila['valor']."</td>";
+  echo "<td>".$fila['provedor']."</td>";
+  echo "<td><form action='modificarProducto.php' method='GET'>
+              <input hidden type='number' name='id' value='".$fila['id']."'>
+              <button type='submit'>Modificar producto</button>
+        </form></td>";
+echo "<td><form action='borrarProducto.php' method='POST'>
+          <input hidden type='number' name='idProducto' value='".$fila['id']."'>
+          <input hidden type='text' name='imagen' value='".$fila['imagen']."'>
+          <button type='submit'>Borrar Producto</button>
+      </form></td>";
+echo "</tr>";
 }
 echo "</table>";
 

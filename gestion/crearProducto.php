@@ -22,7 +22,7 @@
         $consultaProvedores = "SELECT * FROM provedor";
         $resultadoProvedores = mysqli_query($conexion,$consultaProvedores);
         while ($provedores = mysqli_fetch_assoc($resultadoProvedores)) {
-              echo "<option value='".$provedores['id']."'>".$provedores['nombre']."</option>";
+              echo "<option value='".$provedores['nombre']."'>".$provedores['nombre']."</option>";
             }
             echo "</select><br>";
         ?>

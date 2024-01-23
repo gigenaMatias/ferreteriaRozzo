@@ -1,10 +1,25 @@
 <?php
 $q = $_GET['q'];
+$provedor = $_GET['p'];
 include('conexion.php');
 
-$sql = "SELECT * FROM productos WHERE nombre LIKE '%".$q."%'";
-$result = mysqli_query($conexion,$sql);
+if ($provedor == '' && $q != '') { //si provedor es vacio y nombre tiene algo
+  //busqueda por nombre
+  $sql = "SELECT * FROM productos WHERE nombre LIKE '%".$q."%'";
+} else {
+  if ($provedor != '' && $q == '') { //si provedor tiene algo y nombre es vacio
+    //busqueda por provedor
+    $sql = "SELECT * FROM productos WHERE provedor LIKE '%".$provedor."%'";
+  } else {
+    if($q == '' && $provedor == ''){ //si provedor y nombre es vacio 
+      $sql = "SELECT * FROM productos";
+    }else{
+      $sql = "SELECT * FROM productos WHERE nombre LIKE '%".$q."%' AND provedor LIKE '%".$provedor."%'";
+    }
+  }
+}
 
+$result = mysqli_query($conexion,$sql);
 $productosLive = mysqli_fetch_assoc($result);
 
 echo "<table>

@@ -8,9 +8,31 @@
 <body>
   
 <form>
-  <input id='inputBusqueda' placeholder='Escriba el nombre del producto' type='text' size='30' onkeyup='showResult(this.value)'>
+  <input id='inputBusqueda' placeholder='Nombre del producto' type='text' size='30' onkeyup='showResult(this.value)'>
   <div id='livesearch'></div>
+
+  <?php //carga dinamica SELECT
+  include_once('conexion.php');
+  $sql = "SELECT * FROM provedor";
+  $result = mysqli_query($conexion,$sql);
+  $provedores = mysqli_fetch_assoc($result);
+
+  echo "<label for='provedores'>Provedor:</label>";
+  echo "<select name='provedores' id='SelectProvedores' onchange='showResult(this.value)'>";
+  echo "<option value='' selected >todos los provedores</option>"; //preterminado
+    if (mysqli_num_rows($result)> 0){
+      while ($row = mysqli_fetch_array($result)) {
+        echo "<option value='".$row['nombre']."'>".$row['nombre']."</option>"; //opciones del select
+      }
+    }else{
+      echo "<option value=''>todos</option>"; //sin provedores
+    }
+  echo "</select>";
+  ?>
+
 </form>
+  
+
 <br>
 <div id='txtHint'><b>Datos del producto aqui...</b></div>
 
@@ -42,7 +64,10 @@
 
 <script>
 function showResult(str) {
-    if (str == '') {
+  var nombre = document.getElementById('inputBusqueda');
+  var provedor = document.getElementById('SelectProvedores').value;
+  
+    if (nombre == '' && provedor == '') {
       document.getElementById('txtHint').innerHTML = '';
       return;
     } else {
@@ -52,7 +77,7 @@ function showResult(str) {
         document.getElementById('txtHint').innerHTML = this.responseText;
       }
     };
-    xmlhttp.open('GET','buscadorVentas.php?q='+str,true);
+    xmlhttp.open('GET','buscadorVentas.php?q='+nombre.value+'&p='+provedor,true);
     xmlhttp.send();
   }
 }
