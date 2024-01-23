@@ -27,6 +27,7 @@ if ($datosProducto['divisible']) {
 echo "<td>".$datosProducto['imagen']."</td>";
 echo "<td style='text-align: center;'>".$datosProducto['valor']."</td>";
 echo "<td>".$datosProducto['provedor']."</td>";
+echo "<td class='resultado'>".$cantidad * $datosProducto['valor']."</td>";
 echo "<button id=botonCarrito".$datosProducto['id']." onclick='borrarItemCarrito(".$datosProducto['id'].")'>borrar item</button>";
 echo "</tr>";
 

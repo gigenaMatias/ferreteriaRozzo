@@ -45,14 +45,16 @@
   <br>
   <br>
   <a>Cantidad puede ser editado!<a>
-  <table id='tablaCarrito'>
+  <table id='tablaCarrito' style="border: 1px solid;border-collapse: separate;border-spacing: 10px 5px;">
     <th>ID del producto</th>
     <th>Cantidad</th>
     <th>Nombre</th>
     <th>divisible</th>
     <th>Imagen</th>
-    <th>Valor por Paquete o Unidad</th>
+    <th>Valor por Paquete/Unidad</th>
     <th>Provedor</th>
+    <th>ResultadoXcantidad</th>
+    <th id ='total'>Total</th>
     <tbody id="bodyCarrito">
     <!--productos cargador por AJAX-->
     </tbody>
@@ -85,6 +87,7 @@ function showResult(str) {
 function agregarCarrito(str) { //agregar producto
   var cantidad = document.getElementById('cantidadVenta'+str).value;
   var xhttp;
+  var resultado;
   xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
@@ -94,6 +97,14 @@ function agregarCarrito(str) { //agregar producto
   };
   xhttp.open("GET", "carrito.php?q="+str+"&c="+cantidad, true);
   xhttp.send();
+  var resultados = parentDOM.getElementsByClassName("resultado");
+  if (resultados > 1) {
+    var elementList = tabla.querySelectorAll("tr"); //seleccionamos todos los tr en busca de una coincidencia
+    for (let i = 0; i < resultados.length; i++) {
+      resultado = resultado + Object.values(elementList[i].cantidadElemento);
+  }
+  document.getElementById("total").innerHTML = "TOTAL = "+resultado;
+}
 }
 
 /* (muy bugeado al cargar otros items y repetir uno en la lista)
