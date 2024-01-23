@@ -27,7 +27,7 @@ if (mysqli_num_rows($result)> 0) {
   }
   echo "<td>".$productosLive['valor']."</td>";
   echo "<td>".$productosLive['provedor']."</td>";
-  echo "<td><input id='cantidadVenta' required placeholder='ingrese cantidad' type='number'></td>";
+  echo "<td><input id='cantidadVenta".$productosLive['id']."' required placeholder='ingrese cantidad' type='number'></td>";
   echo "<td><button type='submit' onclick='agregarCarrito(".$productosLive['id'].")'>Agregar al carrito</button></td>";
   echo "</tr>";
 } else {
@@ -46,7 +46,7 @@ while($row = mysqli_fetch_array($result)) { //mostrar despues del 1er elemento
   }
   echo "<td>".$row['valor']."</td>";
   echo "<td>".$row['provedor']."</td>";
-  echo "<td><input id='cantidadVenta' required  placeholder='ingrese cantidad' type='number'></td>";
+  echo "<td><input id='cantidadVenta".$row['id']."' required placeholder='ingrese cantidad' type='number'></td>";
   echo "<td><button type='submit' onclick='agregarCarrito(".$row['id'].")'>Agregar al carrito</button></td>";
   echo "</tr>";
 

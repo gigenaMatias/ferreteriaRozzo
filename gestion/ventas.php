@@ -58,6 +58,7 @@ function showResult(str) {
 }
 
 function agregarCarrito(str) { //agregar producto
+  var cantidad = document.getElementById('cantidadVenta'+str).value;
   var xhttp;
   xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -66,7 +67,7 @@ function agregarCarrito(str) { //agregar producto
     //verificarRepetidos(str); funcion comentada (muy bugueada)
   }
   };
-  xhttp.open("GET", "carrito.php?q="+str, true);
+  xhttp.open("GET", "carrito.php?q="+str+"&c="+cantidad, true);
   xhttp.send();
 }
 
