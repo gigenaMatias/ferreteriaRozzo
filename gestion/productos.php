@@ -15,12 +15,12 @@
   $sql = "SELECT * FROM provedor";
   $result = mysqli_query($conexion,$sql);
   $provedores = mysqli_fetch_assoc($result);
-
   echo "<label for='provedores'>Provedor:</label>";
   echo "<select name='provedores' id='SelectProvedores' onchange='showResult(this.value)'>";
   echo "<option value='' selected >todos los provedores</option>"; //preterminado
     if (mysqli_num_rows($result)> 0){
-      while ($row = mysqli_fetch_array($result)) {
+      echo "<option value='".$provedores['nombre']."'>".$provedores['nombre']."</option>";
+      while ($row = mysqli_fetch_assoc($result)) {
         echo "<option value='".$row['nombre']."'>".$row['nombre']."</option>"; //opciones del select
       }
     }else{

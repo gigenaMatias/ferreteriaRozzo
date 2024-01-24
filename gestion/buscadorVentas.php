@@ -29,6 +29,9 @@ echo "<table>
 <th>Divisible</th>
 <th>Valor</th>
 <th>Provedor</th>
+<th>Imagen (si esta disponible)</th>
+<th></th>
+<th></th>
 <th></th>"; //boton compra
 echo "</tr>";
 if (mysqli_num_rows($result)> 0) {
@@ -42,6 +45,11 @@ if (mysqli_num_rows($result)> 0) {
   }
   echo "<td>".$productosLive['valor']."</td>";
   echo "<td>".$productosLive['provedor']."</td>";
+  if ($productosLive['imagen'] != '') {
+    echo "<td><img src='".$productosLive['imagen']."' width='15%' height='15%'></td>";
+  }else {
+    echo "<td></td>";
+  }
   echo "<td><input id='cantidadVenta".$productosLive['id']."' required placeholder='ingrese cantidad' type='number'></td>";
   echo "<td><button type='submit' onclick='agregarCarrito(".$productosLive['id'].")'>Agregar al carrito</button></td>";
   echo "</tr>";
@@ -61,6 +69,9 @@ while($row = mysqli_fetch_array($result)) { //mostrar despues del 1er elemento
   }
   echo "<td>".$row['valor']."</td>";
   echo "<td>".$row['provedor']."</td>";
+  if ($row['imagen'] != 'imagen') {
+    echo "<td><img src='".$row['imagen']."' width='15%' height='15%'></td>";
+  }
   echo "<td><input id='cantidadVenta".$row['id']."' required placeholder='ingrese cantidad' type='number'></td>";
   echo "<td><button type='submit' onclick='agregarCarrito(".$row['id'].")'>Agregar al carrito</button></td>";
   echo "</tr>";

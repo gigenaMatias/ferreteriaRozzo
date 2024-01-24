@@ -42,6 +42,9 @@ if (mysqli_num_rows($result)> 0) {
   }
   echo "<td>".$productosLive['valor']."</td>";
   echo "<td>".$productosLive['provedor']."</td>";
+  if ($productosLive['imagen'] != null) {
+    echo "<td><img src='".$productosLive['imagen']."' width='15%' height='15%'></td>";
+  }
   echo "<td><form action='modificarProducto.php' method='GET'>
               <input hidden type='number' name='id' value='".$productosLive['id']."'>
               <button type='submit'>Modificar producto</button>
@@ -68,6 +71,9 @@ while($fila = mysqli_fetch_array($result)) { //mostrar despues del 1er elemento
   }
   echo "<td>".$fila['valor']."</td>";
   echo "<td>".$fila['provedor']."</td>";
+  if ($fila['imagen'] == 'imagen') {
+    echo "<td><img src='".$fila['imagen']."' width='15%' height='15%'></td>";
+  }
   echo "<td><form action='modificarProducto.php' method='GET'>
               <input hidden type='number' name='id' value='".$fila['id']."'>
               <button type='submit'>Modificar producto</button>
