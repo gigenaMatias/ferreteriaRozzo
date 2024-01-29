@@ -54,11 +54,19 @@
     <th>Imagen</th>
     <th>Valor por Paquete/Unidad</th>
     <th>Provedor</th>
-    <th>ResultadoXcantidad</th>
-    <th id ='total'>Total</th>
+    <th class="resultado">ResultadoXcantidad</th>
     <tbody id="bodyCarrito">
     <!--productos cargador por AJAX-->
     </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="8">Total</td>
+        <td id="totalResult">0</td>
+      </tr>
+      <tr>
+        <td colspan="8"><button><a href='remito.php'>ENVIAR</a></button></td>
+      </tr>
+    </tfoot>
   </table>
 </div>
 
@@ -78,6 +86,7 @@ function showResult(str) {
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         document.getElementById('txtHint').innerHTML = this.responseText;
+        
       }
     };
     xmlhttp.open('GET','buscadorVentas.php?q='+nombre.value+'&p='+provedor,true);
@@ -93,19 +102,29 @@ function agregarCarrito(str) { //agregar producto
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
     document.getElementById("bodyCarrito").innerHTML += this.responseText;
+    calcularTotal();
     //verificarRepetidos(str); funcion comentada (muy bugueada)
   }
   };
   xhttp.open("GET", "carrito.php?q="+str+"&c="+cantidad, true);
   xhttp.send();
-  var resultados = parentDOM.getElementsByClassName("resultado");
-  if (resultados > 1) {
-    var elementList = tabla.querySelectorAll("tr"); //seleccionamos todos los tr en busca de una coincidencia
-    for (let i = 0; i < resultados.length; i++) {
-      resultado = resultado + Object.values(elementList[i].cantidadElemento);
-  }
-  document.getElementById("total").innerHTML = "TOTAL = "+resultado;
 }
+
+function calcularTotal(){
+ /* var carrito = document.getElementById('tablaCarrito');
+ // console.log(carrito.rows[1]);
+  for (let i = 0; i < carrito.rows.length ; i++) {
+    console.log(carrito.rows[i].cells[2].innerHTML);
+  }*/
+ let total = 0;
+  const tablaCarrito = document.getElementById("tablaCarrito");
+  for(let i = 1; i < tablaCarrito.rows.length-2; i++){
+    let valorTotal = tablaCarrito.rows[i].cells[7].innerHTML;
+    total = total + Number(valorTotal);
+  }
+  const tdTotal = document.getElementById("totalResult");
+  tdTotal.textContent = "$"+total;
+  console.log(total);
 }
 
 /* (muy bugeado al cargar otros items y repetir uno en la lista)
@@ -144,6 +163,7 @@ function borrarItemCarrito(id) {
   var botonItem = document.getElementById('botonCarrito'+id);
   botonItem.remove();
   nodoTabla.parentNode.removeChild(nodoTabla); //elimina la fila con los datos del carrito
+  calcularTotal();
 }
 
 </script>

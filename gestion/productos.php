@@ -33,7 +33,7 @@
   <br>
   <div id='txtHint'><b>Datos del producto aqui...</b></div>
   <br>
-  <button><a href='crearProducto.php' class='vuelta'>Crear Producto</a></button>
+  <button><a href='crearProducto.php' >Crear Producto</a></button>
   <br>
   <br>
 <?php
