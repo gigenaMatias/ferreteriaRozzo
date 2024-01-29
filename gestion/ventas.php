@@ -63,9 +63,16 @@
         <td colspan="8">Total</td>
         <td id="totalResult">0</td>
       </tr>
-      <tr>
-        <td colspan="8"><button><a href='remito.php'>ENVIAR</a></button></td>
-      </tr>
+
+        <tr>
+        <td colspan='8'>
+        <form action='remito.php' method='POST'>
+
+            <button type='submit'>ENVIAR</button>
+        </td>
+      </tr>;
+
+
     </tfoot>
   </table>
 </div>
@@ -103,6 +110,7 @@ function agregarCarrito(str) { //agregar producto
     if (this.readyState == 4 && this.status == 200) {
     document.getElementById("bodyCarrito").innerHTML += this.responseText;
     calcularTotal();
+    cargarArreglos();
     //verificarRepetidos(str); funcion comentada (muy bugueada)
   }
   };
@@ -111,12 +119,7 @@ function agregarCarrito(str) { //agregar producto
 }
 
 function calcularTotal(){
- /* var carrito = document.getElementById('tablaCarrito');
- // console.log(carrito.rows[1]);
-  for (let i = 0; i < carrito.rows.length ; i++) {
-    console.log(carrito.rows[i].cells[2].innerHTML);
-  }*/
- let total = 0;
+  let total = 0;
   const tablaCarrito = document.getElementById("tablaCarrito");
   for(let i = 1; i < tablaCarrito.rows.length-2; i++){
     let valorTotal = tablaCarrito.rows[i].cells[7].innerHTML;
@@ -124,7 +127,16 @@ function calcularTotal(){
   }
   const tdTotal = document.getElementById("totalResult");
   tdTotal.textContent = "$"+total;
-  console.log(total);
+
+}
+
+function cargarArreglos(ids,cantidades){
+  let ids = [];
+  let cantidades = [];
+  const tablaCarrito = document.getElementById("tablaCarrito");
+  for(let i = 1; i < tablaCarrito.rows.length-2; i++){
+    ids.push = tablaCarrito.rows[i].cells[0].innerHTML;
+  }
 }
 
 /* (muy bugeado al cargar otros items y repetir uno en la lista)
