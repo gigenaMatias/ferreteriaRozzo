@@ -38,23 +38,29 @@ function Footer()
 }
 }
 
-$consulta = "SELECT * from productos";
-$resultado = mysqli_query($conexion,$consulta);
+$ids = $_POST['idPro'];
+$arrayIds[] = implode(' ',$ids);
+$cantidades = $_POST['cantPro'];
+$arrayCant[] = implode(' ',$cantidades);
 $i = 1;
+
 // Creación del objeto de la clase heredada
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times','',12);
-
-while($fila = $resultado->fetch_assoc()){
-    $pdf->Cell(30,10,$i,1,0,'C',0);
-    $pdf->Cell(30,10,$fila['nombre'],1,0,'C',0);
-    $pdf->Cell(30,10,$fila['valor'],1,0,'C',0);
-    $pdf->Cell(30,10,$fila['cantidad'],1,0,'C',0);
-    $pdf->Cell(35,10,$fila['divisible'],1,0,'C',0);
-    $pdf->Cell(30,10,$fila['provedor'],1,1,'C',0);
-    $i++;
+foreach($arrayIds as $id) {
+    $consulta = "SELECT * from productos WHERE id='".$id."'";
+    $resultado = mysqli_query($conexion,$consulta);
+    while($fila = $resultado->fetch_assoc()){
+        $pdf->Cell(30,10,$i,1,0,'C',0);
+        $pdf->Cell(30,10,$fila['nombre'],1,0,'C',0);
+        $pdf->Cell(30,10,$cantidades[$i-1],1,0,'C',0);
+        $pdf->Cell(30,10,$fila['divisible'],1,0,'C',0);
+        $pdf->Cell(35,10,$fila['valor'],1,0,'C',0);
+        $pdf->Cell(30,10,$cantidades[$i-1]*$fila['valor'],1,1,'C',0);
+        $i++;
+    }
 }
 $pdf->Output();
 
