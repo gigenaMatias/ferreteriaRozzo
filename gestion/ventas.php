@@ -67,8 +67,8 @@
         <tr>
         <td colspan='8'>
         <form id="formCarrito" action='remito.php' method='POST'>
-          <input hidden id="idsPro" type='number' name='idPro[]' value=''>
-          <input hidden id="cantsPro" type='number' name='cantPro[]' value=''>
+          <input hidden id="idsPro" type='text' name='idPro' value="">
+          <input hidden id="cantsPro" type='text' name='cantPro' value="">
           <button type='submit'>ENVIAR</button>
         </form>
         </td>
@@ -131,13 +131,13 @@ function cargarArreglos(){
   var ids = [];
   var cants = [];
   for(let i = 1; i < tablaCarrito.rows.length-2; i++){
-    ids[i-1]= tablaCarrito.rows[i].cells[0].innerHTML;
-    cants[i-1]= tablaCarrito.rows[i].cells[1].innerHTML;
+    ids[i-1] = tablaCarrito.rows[i].cells[0].innerHTML;
+    cants[i-1] = tablaCarrito.rows[i].cells[1].innerHTML;
   }
-  let valorIds = idsPro.value = ids;
-  idsPro.innerHTML = "'"+valorIds+"' "; 
-  let valorCant = cantsPro.value = cants;
-  cantsPro.innerHTML = "'"+valorCant+"' "; 
+  idsPro.value = ids.join();
+  cantsPro.value = cants.join();
+  //alert(idsPro.value);
+
 }
 
 function calcularTotal(){

@@ -39,12 +39,13 @@ function Footer()
 }
 
 $ids = $_POST['idPro'];
-$arrayIds[] = implode(' ',$ids);
+$arrayIds = explode(',',$ids);
 $cantidades = $_POST['cantPro'];
-$arrayCant[] = implode(' ',$cantidades);
+$arrayCant = explode(',',$cantidades);
 $i = 1;
 
 // Creación del objeto de la clase heredada
+
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
@@ -55,10 +56,11 @@ foreach($arrayIds as $id) {
     while($fila = $resultado->fetch_assoc()){
         $pdf->Cell(30,10,$i,1,0,'C',0);
         $pdf->Cell(30,10,$fila['nombre'],1,0,'C',0);
-        $pdf->Cell(30,10,$cantidades[$i-1],1,0,'C',0);
+        $pdf->Cell(30,10,$arrayCant[$i-1],1,0,'C',0);
         $pdf->Cell(30,10,$fila['divisible'],1,0,'C',0);
         $pdf->Cell(35,10,$fila['valor'],1,0,'C',0);
-        $pdf->Cell(30,10,$cantidades[$i-1]*$fila['valor'],1,1,'C',0);
+        $pdf->Cell(30,10,intval($arrayCant[$i-1])*$fila['valor'],1,1,'C',0);
+        //
         $i++;
     }
 }
