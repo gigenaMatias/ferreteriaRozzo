@@ -65,9 +65,11 @@
       </tr>
         <tr>
         <td colspan='8'>
-        <form action='remito.php' method='POST'>
-          <input hidden id="inputJson" name="jsonData" type="text">
-            <button type='submit'>ENVIAR</button>
+        <form id="formCarrito" action='remito.php' method='POST'>
+          <input hidden id="idsPro" type='text' name='idPro' value="">
+          <input hidden id="cantsPro" type='text' name='cantPro' value="">
+          <button type='submit'>ENVIAR</button>
+        </form>
         </td>
       </tr>;
     </tfoot>
@@ -101,16 +103,37 @@ function agregarCarrito(str) { //agregar producto
   var cantidad = document.getElementById('cantidadVenta'+str).value;
   var xhttp;
   var resultado;
+  let repetido = verificarRepetidos(str);;
   xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
+    if(repetido > 0){
+      borrarItemCarrito(str);
+    }
     document.getElementById("bodyCarrito").innerHTML += this.responseText;
     calcularTotal();
     cargarArreglos();
-    }
+  }
   };
-  xhttp.open("GET", "carrito.php?q="+str+"&c="+cantidad, true);
+  console.log(Number(cantidad)+Number(repetido))
+  xhttp.open("GET", "carrito.php?q="+str+"&c="+(Number(cantidad)+Number(repetido)), true);
   xhttp.send();
+}
+
+function cargarArreglos(){
+  const tablaCarrito = document.getElementById("tablaCarrito");
+  const idsPro = document.getElementById("idsPro");
+  const cantsPro = document.getElementById("cantsPro");
+  var ids = [];
+  var cants = [];
+  for(let i = 1; i < tablaCarrito.rows.length-2; i++){
+    ids[i-1] = tablaCarrito.rows[i].cells[0].innerHTML;
+    cants[i-1] = tablaCarrito.rows[i].cells[1].innerHTML;
+  }
+  idsPro.value = ids.join();
+  cantsPro.value = cants.join();
+  //alert(idsPro.value);
+
 }
 
 function calcularTotal(){
@@ -123,62 +146,19 @@ function calcularTotal(){
   const tdTotal = document.getElementById("totalResult");
   tdTotal.textContent = "$"+total;
 
-  //crear JSON (prueba debug) falta cargar todos los rows recorriendo con la forma de arriba
-  let input = document.getElementById("inputJson");
-  let id = tablaCarrito.rows[1].cells[0].innerHTML;
-  let cantidad = tablaCarrito.rows[1].cells[1].innerHTML;
-  let valor = tablaCarrito.rows[1].cells[5].innerHTML;
-  
-  let productos = '{ "productos" : [' +
-        '{ "id":"'+id+
-        '", "cantidad":"'+cantidad+
-        '", "valor por Paquete/Unidad":"'+valor+
-        '"} ]}';
-  let objetoprueba = JSON.parse(productos);
-  input.value = objetoprueba; //cargar el input para enviarlo por POST
-  console.log(objetoprueba); //mostrar JSON
-
 }
 
-function cargarArreglos(){
-  let ids = [];
-  let cantidades = [];
+function verificarRepetidos(id){
+  let bandera = 0;
   const tablaCarrito = document.getElementById("tablaCarrito");
   for(let i = 1; i < tablaCarrito.rows.length-2; i++){
-    ids.push = tablaCarrito.rows[i].cells[0].innerHTML;
+    let existente = tablaCarrito.rows[i].cells[0].innerHTML;
+    if(id == existente){
+      bandera = tablaCarrito.rows[i].cells[1].innerHTML;
+    }
   }
+  return bandera;
 }
-
-/* (muy bugeado al cargar otros items y repetir uno en la lista)
-function verificarRepetidos(id) {
-  var elementoCarrito = document.getElementById('elementoCarrito'+id).id;
-  var tabla = document.getElementById('tablaCarrito');
-  var largoTabla = document.getElementById('tablaCarrito').rows.length;
-  if (largoTabla > 1 && elementoCarrito != null) { //si cargo el elemento empieza a recorrer
-    var elementList = tabla.querySelectorAll("tr"); //seleccionamos todos los tr en busca de una coincidencia
-    for (let i = 0; i < elementList.length; i++) {
-      if (elementList[i].id == elementoCarrito) {
-        elementList[i].cells[1].innerHTML ++; //aumentamos en 1 la cantidad
-      }
-    }
-  }//borrar el repetido
-  if (largoTabla > 1 && elementoCarrito != null) { //si cargo el elemento empieza a recorrer
-    var elementList = tabla.querySelectorAll("tr"); //seleccionamos todos los tr en busca de una coincidencia
-    var botonItem = document.getElementById('botonCarrito'+id); //boton del repetido
-    var aux = false;
-    for (let i = 1; i < elementList.length; i++) {
-      if (elementList[i].id == elementoCarrito && aux == false) { //buscamos el repetido
-        aux = true;
-        i++;
-        elementList[i].remove();
-        botonItem.remove();
-      }else{
-        console.log("no es el "+i);
-      }
-    }
-  }
-
-}*/
 
 function borrarItemCarrito(id) {
   var nodoTabla = document.getElementById('elementoCarrito'+id);
@@ -186,6 +166,7 @@ function borrarItemCarrito(id) {
   botonItem.remove();
   nodoTabla.parentNode.removeChild(nodoTabla); //elimina la fila con los datos del carrito
   calcularTotal();
+  cargarArreglos();
 }
 
 </script>
