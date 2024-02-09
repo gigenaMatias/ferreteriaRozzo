@@ -8,7 +8,7 @@
 <body>
   
 <form>
-  <input id='inputBusqueda' placeholder='Nombre del producto' type='text' size='30' onkeyup='showResult(this.value)'>
+  <input id='inputBusqueda' placeholder='Nombre del producto' type='text' size='30' onkeyup='showResult()'>
   <div id='livesearch'></div>
 
   <?php //carga dinamica SELECT
@@ -18,7 +18,7 @@
   $provedores = mysqli_fetch_assoc($result);
 
   echo "<label for='provedores'>Provedor:</label>";
-  echo "<select name='provedores' id='SelectProvedores' onchange='showResult(this.value)'>";
+  echo "<select name='provedores' id='SelectProvedores' onchange='showResult()'>";
   echo "<option value='' selected >todos los provedores</option>"; //preterminado
     if (mysqli_num_rows($result)> 0){
       echo "<option value='".$provedores['nombre']."'>".$provedores['nombre']."</option>";
@@ -31,7 +31,7 @@
   echo "</select>";
   ?>
 
-</form>
+</form id="formTabla">
   
 
 <br>
@@ -46,7 +46,7 @@
   <br>
   <br>
   <a>Cantidad puede ser editado!<a>
-  <table id='tablaCarrito' style="border: 1px solid;border-collapse: separate;border-spacing: 10px 5px;">
+  <table id='tablaCarrito' name="tablaCarrito" style="border: 1px solid;border-collapse: separate;border-spacing: 10px 5px;">
     <th>ID del producto</th>
     <th>Cantidad</th>
     <th>Nombre</th>
@@ -55,7 +55,7 @@
     <th>Valor por Paquete/Unidad</th>
     <th>Provedor</th>
     <th class="resultado">ResultadoXcantidad</th>
-    <tbody id="bodyCarrito">
+    <tbody id="bodyCarrito"> <!--nombre para POST-->
     <!--productos cargador por AJAX-->
     </tbody>
     <tfoot>
@@ -63,16 +63,13 @@
         <td colspan="8">Total</td>
         <td id="totalResult">0</td>
       </tr>
-
         <tr>
         <td colspan='8'>
         <form action='remito.php' method='POST'>
-
+          <input hidden id="inputJson" name="jsonData" type="text">
             <button type='submit'>ENVIAR</button>
         </td>
       </tr>;
-
-
     </tfoot>
   </table>
 </div>
@@ -81,10 +78,9 @@
 </html>
 
 <script>
-function showResult(str) {
+function showResult() {
   var nombre = document.getElementById('inputBusqueda');
   var provedor = document.getElementById('SelectProvedores').value;
-  
     if (nombre == '' && provedor == '') {
       document.getElementById('txtHint').innerHTML = '';
       return;
@@ -111,8 +107,7 @@ function agregarCarrito(str) { //agregar producto
     document.getElementById("bodyCarrito").innerHTML += this.responseText;
     calcularTotal();
     cargarArreglos();
-    //verificarRepetidos(str); funcion comentada (muy bugueada)
-  }
+    }
   };
   xhttp.open("GET", "carrito.php?q="+str+"&c="+cantidad, true);
   xhttp.send();
@@ -128,9 +123,24 @@ function calcularTotal(){
   const tdTotal = document.getElementById("totalResult");
   tdTotal.textContent = "$"+total;
 
+  //crear JSON (prueba debug) falta cargar todos los rows recorriendo con la forma de arriba
+  let input = document.getElementById("inputJson");
+  let id = tablaCarrito.rows[1].cells[0].innerHTML;
+  let cantidad = tablaCarrito.rows[1].cells[1].innerHTML;
+  let valor = tablaCarrito.rows[1].cells[5].innerHTML;
+  
+  let productos = '{ "productos" : [' +
+        '{ "id":"'+id+
+        '", "cantidad":"'+cantidad+
+        '", "valor por Paquete/Unidad":"'+valor+
+        '"} ]}';
+  let objetoprueba = JSON.parse(productos);
+  input.value = objetoprueba; //cargar el input para enviarlo por POST
+  console.log(objetoprueba); //mostrar JSON
+
 }
 
-function cargarArreglos(ids,cantidades){
+function cargarArreglos(){
   let ids = [];
   let cantidades = [];
   const tablaCarrito = document.getElementById("tablaCarrito");
