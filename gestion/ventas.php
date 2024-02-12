@@ -65,7 +65,7 @@
       </tr>
         <tr>
         <td colspan='8'>
-        <form id="formCarrito" action='remito.php' method='POST'>
+        <form id="formCarrito" action='confirmarCarrito.php' method='POST'>
           <input hidden id="idsPro" type='text' name='idPro' value="">
           <input hidden id="cantsPro" type='text' name='cantPro' value="">
           <button type='submit'>ENVIAR</button>

@@ -2,13 +2,10 @@
 require("../fpdf/fpdf.php");
 require("conexion.php");
 
-$datosTabla = $_POST['jsonData'];
+/*$datosTabla = $_POST['jsonData'];
 $jsonDecoded = json_decode($datosTabla); 
-print_r($jsonDecoded); //objeto json a string
+print_r($jsonDecoded); //objeto json a string*/
 
-
-
-/*
 
 class PDF extends FPDF
 {
@@ -73,5 +70,5 @@ foreach($arrayIds as $id) {
     }
 }
 $pdf->Output();
-*/
+
 ?>
