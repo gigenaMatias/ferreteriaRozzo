@@ -3,16 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="icon" type="image/x-icon" href="../imagenes/iconos/ferreteria.ico">
   <title>Ventas</title>
 </head>
 <body>
-  
+<header>
+    <?php
+    session_start();
+    include("conexion.php");
+    if(empty($_SESSION["usuario"])){
+        header("Location: gestion/iniciarSesion.php");
+    }
+    else{
+        echo "<h2>Sesión de ".$_SESSION["usuario"]."</h2>";
+    }
+?>
+</header>
 <form>
   <input id='inputBusqueda' placeholder='Nombre del producto' type='text' size='30' onkeyup='showResult()'>
   <div id='livesearch'></div>
 
   <?php //carga dinamica SELECT
   include_once('conexion.php');
+  if(isset($_POST['idPro'])){
+    $i = 0;
+    $ids = $_POST['idPro'];
+    $arrayIds = explode(',',$ids);
+    $cantidades = $_POST['cantPro'];
+    $arrayCant = explode(',',$cantidades);
+    foreach($arrayIds as $id) {
+      echo "<script>";
+      echo "recuperarCarrito(".$id.",".$arrayCant[$i].")";
+      echo "</script>";
+      $i++;
+    }
+
+  }
   $sql = "SELECT * FROM provedor";
   $result = mysqli_query($conexion,$sql);
   $provedores = mysqli_fetch_assoc($result);
@@ -32,21 +59,11 @@
   ?>
 
 </form id="formTabla">
-  
 
-<br>
 <div id='txtHint'><b>Datos del producto aqui...</b></div>
-
-<br>
-<a href='../index.php' class='vuelta'>Volver a Home</a>
-<a href='cerrarSesion.php' class='vuelta'>Cerrar Sesion</a>
-<br>
-<br>
 <div id='carrito'><b>Datos del carrito</b>
-  <br>
-  <br>
   <a>Cantidad puede ser editado!<a>
-  <table id='tablaCarrito' name="tablaCarrito" style="border: 1px solid;border-collapse: separate;border-spacing: 10px 5px;">
+  <table id='tablaCarrito' name="tablaCarrito">
     <th>ID del producto</th>
     <th>Cantidad</th>
     <th>Nombre</th>
@@ -68,14 +85,17 @@
         <form id="formCarrito" action='confirmarCarrito.php' method='POST'>
           <input hidden id="idsPro" type='text' name='idPro' value="">
           <input hidden id="cantsPro" type='text' name='cantPro' value="">
-          <button type='submit'>ENVIAR</button>
+          <button id="enviar" type='submit' disabled="disabled">ENVIAR</button>
         </form>
         </td>
       </tr>;
     </tfoot>
   </table>
 </div>
-
+<footer>
+  <button><a href='../index.php' class='vuelta'>Volver a Home</a></button>
+  <button><a href='cerrarSesion.php' class='vuelta'>Cerrar Sesion</a></button>
+</footer>
 </body>
 </html>
 
@@ -97,6 +117,11 @@ function showResult() {
     xmlhttp.open('GET','buscadorVentas.php?q='+nombre.value+'&p='+provedor,true);
     xmlhttp.send();
   }
+}
+
+function recuperarCarrito(id,cant){
+  document.getElementById('cantidadVenta'+id).value = cant;
+  agregarCarrito(id);
 }
 
 function agregarCarrito(str) { //agregar producto
@@ -124,11 +149,13 @@ function cargarArreglos(){
   const tablaCarrito = document.getElementById("tablaCarrito");
   const idsPro = document.getElementById("idsPro");
   const cantsPro = document.getElementById("cantsPro");
+  document.getElementById("enviar").disabled = "disabled";
   var ids = [];
   var cants = [];
   for(let i = 1; i < tablaCarrito.rows.length-2; i++){
     ids[i-1] = tablaCarrito.rows[i].cells[0].innerHTML;
     cants[i-1] = tablaCarrito.rows[i].cells[1].innerHTML;
+    document.getElementById("enviar").disabled = false;
   }
   idsPro.value = ids.join();
   cantsPro.value = cants.join();

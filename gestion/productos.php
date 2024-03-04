@@ -3,9 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>productos</title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <link rel="icon" type="image/x-icon" href="../imagenes/iconos/ferreteria.ico">
+  <title>Productos</title>
 </head>
 <body>
+<header>
+    <?php
+    session_start();
+    include("conexion.php");
+    if(empty($_SESSION["usuario"])){
+        header("Location: gestion/iniciarSesion.php");
+    }
+    else{
+      if($_SESSION["usuario"]!= "admin"){
+        header("Location: gestion/iniciarSesion.php");
+      }
+      else{
+        echo "<h2>Sesión de ".$_SESSION["usuario"]."</h2>";
+      }
+    }
+?>
+</header>
 <form>
   <input id='inputBusqueda' placeholder='Escriba el nombre del producto a buscar' type='text' size='35' onkeyup='showResult(this.value)'>
   <div id='livesearch'></div>
@@ -124,7 +143,9 @@
 </script>
   <br>
   <br>
-  <a href='../index.php' class='vuelta'>Volver a Home</a>
-  <a href='cerrarSesion.php' class='vuelta'>Cerrar Sesion</a>
+<footer>
+  <button><a href='../index.php' class='vuelta'>Volver a Home</a></button>
+  <button><a href='gestion/cerrarSesion.php' class='vuelta'>Cerrar Sesion</a></button>
+</footer>
 </body>
 </html>

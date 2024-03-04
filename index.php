@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<?php
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Gestion Ferreteria Rozzo</title>
+    <link rel="icon" type="image/x-icon" href="imagenes/iconos/ferreteria.ico">
+</head>
+<body>
+    <header>
+    <?php
     session_start();
     include("gestion/conexion.php");
     if(empty($_SESSION["usuario"])){
         header("Location: gestion/iniciarSesion.php");
     }
     else{
-        echo "conectado admin";
+        echo "<h2>Bienvenido ".$_SESSION["usuario"]."</h2>";
     }
 ?>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion Ferreteria Rozzo</title>
-    <link rel="icon" type="image/x-icon" href="imagenes/iconos/ferreteria.ico">
-</head>
-<body>
+    </header>
     <!--Menu Navegacion-->
+    <div class="menuIndex">
     <ul>
         <li>
             <form action="gestion/ventas.php" method="post">
@@ -40,7 +44,10 @@
             </form> <!--Ver Provedores-->
         </li>
     </ul>
-    
-    <a href='gestion/cerrarSesion.php' class='vuelta'>Cerrar Sesion</a>
+    </div>
+
+<footer>
+    <button><a href='gestion/cerrarSesion.php' class='vuelta'>Cerrar Sesion</a></button>
+</footer>
 </body>
 </html>

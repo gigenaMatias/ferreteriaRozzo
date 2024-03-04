@@ -3,10 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../imagenes/iconos/ferreteria.ico">
+    <title>Confirmar Carrito</title>
 </head>
 <body>
-<table id='tablaCarrito' name="tablaCarrito" style="border: 1px solid;border-collapse: separate;border-spacing: 10px 5px;">
+<header>
+    <?php
+    session_start();
+    include("conexion.php");
+    if(empty($_SESSION["usuario"])){
+        header("Location: gestion/iniciarSesion.php");
+    }
+    else{
+        echo "<h2>Sesión de ".$_SESSION["usuario"]."</h2>";
+    }
+?>
+</header>
+<table id='tablaCarrito'>
     <th>ID del producto</th>
     <th>Cantidad</th>
     <th>Nombre</th>
@@ -54,10 +68,17 @@
             <input hidden type="text" name="cantPro" value=<?php echo $_POST['cantPro'];?>>
             <button type='submit'>GENERAR PDF</button>
             </form>
-            <button onclick="location.href='ventas.php'">CANCELAR</button>
+            <form action="ventas.php" method="POST">
+                <input hidden type="text" name="idPro" value=<?php echo $_POST['idPro'];?>>
+                <input hidden type="text" name="cantPro" value=<?php echo $_POST['cantPro'];?>>
+                <button type='submit'>CANCELAR</button>
+            </form>
         </td>
       </tr>;
     </tfoot>
-
+<footer>
+  <button><a href='../index.php' class='vuelta'>Volver a Home</a></button>
+  <button><a href='cerrarSesion.php' class='vuelta'>Cerrar Sesion</a></button>
+</footer>
 </body>
 </html>

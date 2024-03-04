@@ -1,0 +1,39 @@
+*{
+    background-color: #131313;
+    color: #d6d6d6;
+    font-family: monospace;
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    font-size: 16px;
+}
+#tablaCarrito{
+    border: 1px solid;
+    border-collapse: separate;
+    border-spacing: 10px 5px;
+}
+
+.menuIndex{
+    margin: 10px;
+}
+.menuIndex li{
+    margin: 20px;
+}
+.menuIndex button{
+    padding: 10px;
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    color: white;
+    
+}
+
+footer a{
+    width: 100%;
+
+    text-decoration:none;
+}

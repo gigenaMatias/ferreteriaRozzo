@@ -3,7 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>registrar usuario</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../imagenes/iconos/ferreteria.ico">
+	<title>Registrar usuario</title>
 </head>
 <body>
 	<form action="validarRegistro.php" method="POST">
@@ -17,5 +19,9 @@
         </datalist>
         <button type="submit">Enviar</button>
 	</form>
+<footer>
+  <button><a href='../index.php' class='vuelta'>Volver a Home</a></button>
+  <button><a href="iniciarSesion.php">Loguearse</a></button>
+</footer>
 </body>
 </html>
